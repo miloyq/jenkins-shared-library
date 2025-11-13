@@ -1,0 +1,5 @@
+global:            # 通用配置，适用于所有 step / stage
+
+stages:            # 各 stage 的默认配置
+
+steps:             # 各 step 的配置

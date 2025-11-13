@@ -1,0 +1,23 @@
+package io.github.miloyq.jenkins.config.strategy
+
+import io.github.miloyq.jenkins.config.MergeStrategy
+
+abstract class AbstractMergeStrategy implements MergeStrategy {
+    @Override
+    Object merge(Object base, Object override) {
+        if (!base) return override
+        if (!override) return base
+
+        if (base instanceof Map && override instanceof Map) {
+            return mergeMaps(base, override)
+        } else if (base instanceof List && override instanceof List) {
+            return mergeLists(base, override)
+        }
+
+        return override
+    }
+
+    abstract Map mergeMaps(Map base, Map override)
+
+    abstract List mergeLists(List base, List override)
+}

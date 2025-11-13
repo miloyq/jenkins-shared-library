@@ -1,0 +1,95 @@
+# ================================
+# Build outputs
+# ================================
+target/
+build/
+out/
+bin/
+
+# Allow target/build directories under source paths (for generated test assets)
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# ================================
+# Maven Wrapper
+# ================================
+!.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+.mvn/timing.properties
+
+# ================================
+# IntelliJ IDEA
+# ================================
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Optional: keep project-level settings for shared code style (uncomment if desired)
+# !.idea/codeStyles/
+# !.idea/runConfigurations/
+
+# ================================
+# Eclipse / STS
+# ================================
+.classpath
+.project
+.settings/
+.factorypath
+.apt_generated/
+.springBeans/
+.sts4-cache/
+
+# ================================
+# NetBeans
+# ================================
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# ================================
+# VS Code
+# ================================
+.vscode/
+.history/
+*.code-workspace
+
+# ================================
+# System files
+# ================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ================================
+# Logs & Temp
+# ================================
+*.log
+*.tmp
+*.swp
+*.bak
+*.local
+*.pid
+*.lock
+
+# ================================
+# Jenkins Pipeline / Shared Library
+# ================================
+# Cache or workspace files that may appear during testing
+.jenkins/
+workspace/
+builds/
+
+# ================================
+# Python / Shell helpers (optional local tooling)
+# ================================
+__pycache__/
+*.pyc
+*.pyo
+.env
+venv/

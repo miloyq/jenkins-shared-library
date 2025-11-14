@@ -1,5 +1,5 @@
-import io.github.miloyq.jenkins.config.ConfigLoader
-import io.github.miloyq.jenkins.config.MergeStrategyFactory
+import io.github.miloyq.jsl.config.ConfigLoader
+import io.github.miloyq.jsl.config.MergeStrategyFactory
 
 def call(Map args = [:]) {
     def files = (args.files instanceof List)

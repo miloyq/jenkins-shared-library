@@ -1,6 +1,6 @@
-package io.github.miloyq.jenkins.config.strategy
+package io.github.miloyq.jsl.config.strategy
 
-import io.github.miloyq.jenkins.config.MergeStrategy
+import io.github.miloyq.jsl.config.MergeStrategy
 
 abstract class AbstractMergeStrategy implements MergeStrategy {
     @Override

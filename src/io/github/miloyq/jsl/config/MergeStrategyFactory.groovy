@@ -1,10 +1,10 @@
-package io.github.miloyq.jenkins.config
+package io.github.miloyq.jsl.config
 
 
-import io.github.miloyq.jenkins.config.strategy.AppendMergeStrategy
-import io.github.miloyq.jenkins.config.strategy.DeepMergeStrategy
-import io.github.miloyq.jenkins.config.strategy.OverrideMergeStrategy
-import io.github.miloyq.jenkins.config.strategy.UniqueMergeStrategy
+import io.github.miloyq.jsl.config.strategy.AppendMergeStrategy
+import io.github.miloyq.jsl.config.strategy.DeepMergeStrategy
+import io.github.miloyq.jsl.config.strategy.OverrideMergeStrategy
+import io.github.miloyq.jsl.config.strategy.UniqueMergeStrategy
 
 class MergeStrategyFactory {
     static MergeStrategy getStrategy(String name) {

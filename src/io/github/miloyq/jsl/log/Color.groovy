@@ -1,4 +1,4 @@
-package io.github.miloyq.jenkins.log
+package io.github.miloyq.jsl.log
 
 enum Color {
     RESET('\u001B[0m'),

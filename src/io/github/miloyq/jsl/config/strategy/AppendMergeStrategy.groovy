@@ -1,4 +1,4 @@
-package io.github.miloyq.jenkins.config.strategy
+package io.github.miloyq.jsl.config.strategy
 
 class AppendMergeStrategy extends AbstractMergeStrategy {
     @Override

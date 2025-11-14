@@ -1,6 +1,6 @@
-package io.github.miloyq.jenkins.log
+package io.github.miloyq.jsl.log
 
-import io.github.miloyq.jenkins.util.JenkinsUtils
+import io.github.miloyq.jsl.util.JenkinsUtils
 
 class Logger implements Serializable {
     private def script

@@ -1,7 +1,7 @@
-package io.github.miloyq.jenkins.config
+package io.github.miloyq.jsl.config
 
-import io.github.miloyq.jenkins.config.strategy.DeepMergeStrategy
-import io.github.miloyq.jenkins.log.Logger
+import io.github.miloyq.jsl.config.strategy.DeepMergeStrategy
+import io.github.miloyq.jsl.log.Logger
 
 class ConfigLoader {
     private static final String DEFAULT_CONFIG_PATH = 'config/default.yml'

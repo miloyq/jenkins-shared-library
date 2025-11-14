@@ -1,6 +1,6 @@
-package io.github.miloyq.jenkins.config
+package io.github.miloyq.jsl.config
 
-import io.github.miloyq.jenkins.config.strategy.DeepMergeStrategy
+import io.github.miloyq.jsl.config.strategy.DeepMergeStrategy
 
 class ConfigMerger {
     static Object merge(Object base, Object override, MergeStrategy strategy = new DeepMergeStrategy()) {

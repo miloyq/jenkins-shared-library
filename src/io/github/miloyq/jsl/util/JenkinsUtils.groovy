@@ -1,4 +1,4 @@
-package io.github.miloyq.jenkins.util
+package io.github.miloyq.jsl.util
 
 class JenkinsUtils implements Serializable {
     static String resolveScriptName(script, String defaultName = 'Pipeline') {

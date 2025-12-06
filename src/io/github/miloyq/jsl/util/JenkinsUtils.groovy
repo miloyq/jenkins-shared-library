@@ -1,6 +1,6 @@
 package io.github.miloyq.jsl.util
 
-class JenkinsUtils implements Serializable {
+class JenkinsUtils {
     static String resolveScriptName(script, String defaultName = 'Pipeline') {
         try {
             def clazz = script?.getClass()

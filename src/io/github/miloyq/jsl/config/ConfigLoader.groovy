@@ -3,7 +3,7 @@ package io.github.miloyq.jsl.config
 import io.github.miloyq.jsl.config.strategy.DeepMergeStrategy
 import io.github.miloyq.jsl.log.Logger
 
-class ConfigLoader {
+class ConfigLoader implements Serializable {
     private static final String DEFAULT_CONFIG_PATH = 'config/default.yml'
 
     private def script

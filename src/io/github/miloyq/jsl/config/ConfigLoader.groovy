@@ -11,7 +11,7 @@ class ConfigLoader implements Serializable {
 
     ConfigLoader(script) {
         this.script = script
-        this.log = new Logger(script) // new Logger(script,'ConfigLoader')
+        this.log = new Logger(script, 'ConfigLoader')
     }
 
     Map loadConfig(List files = [], MergeStrategy strategy = new DeepMergeStrategy()) {

@@ -7,10 +7,10 @@ def call(Map args = [:]) {
             : [args.files]
     def strategy = MergeStrategyFactory.getStrategy(args.strategy as String)
     def loader = new ConfigLoader(this)
-    def merged = loader.loadConfig(files, strategy)
+    def config = loader.loadConfig(files, strategy)
 
     // 注册到 Jenkins Pipeline Script Binding
-    this.binding.setVariable("_JSL_CONFIG", merged)
+    this.binding.setVariable("_JSL_CONFIG", config)
 
-    return merged
+    return config
 }

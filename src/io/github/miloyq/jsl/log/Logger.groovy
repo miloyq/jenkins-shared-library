@@ -4,13 +4,13 @@ import io.github.miloyq.jsl.util.JenkinsUtils
 
 class Logger implements Serializable {
     private def script
-    private Level logLevel
     private String scope
+    private Level logLevel
 
-    Logger(script = null, Level logLevel = null, String scope = null) {
+    Logger(script = null, String scope = null, Level logLevel = null) {
         this.script = script
-        this.logLevel = resolveLogLevel(script, logLevel)
         this.scope = resolveScope(script, scope)
+        this.logLevel = resolveLogLevel(script, logLevel)
     }
 
     void debug(String msg) { log(Level.DEBUG, msg, Color.CYAN) }

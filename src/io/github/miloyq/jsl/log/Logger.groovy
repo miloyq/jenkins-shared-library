@@ -1,6 +1,5 @@
 package io.github.miloyq.jsl.log
 
-import io.github.miloyq.jsl.util.JenkinsUtils
 
 class Logger implements Serializable {
     private def script
@@ -60,7 +59,7 @@ class Logger implements Serializable {
 
     private static String resolveScope(script, String scope) {
         if (scope) return scope
-        return JenkinsUtils.resolveScriptName(script)
+        return script?.STEP_NAME ?: 'Unknown'
     }
 
     private String format(String msg, Level level, Color color) {

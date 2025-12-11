@@ -1,7 +1,7 @@
 import io.github.miloyq.jsl.config.ConfigLoader
 import io.github.miloyq.jsl.config.MergeStrategyFactory
 
-def call(Map args = [:]) {
+def load(Map args = [:]) {
     def files = (args.files instanceof List)
             ? args.files as List
             : [args.files]

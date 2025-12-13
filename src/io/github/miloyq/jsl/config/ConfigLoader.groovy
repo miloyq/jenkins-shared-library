@@ -14,13 +14,16 @@ class ConfigLoader implements Serializable {
         this.log = new Logger(script, 'ConfigLoader')
     }
 
-    Map loadConfig(List files = [], MergeStrategy strategy = new DeepMergeStrategy()) {
+    Map loadConfig(
+            List files = [],
+            MergeStrategy strategy = new DeepMergeStrategy()
+    ) {
         def merged = loadDefaultConfig(DEFAULT_CONFIG_PATH)
         files?.each { file ->
             def current = readConfig(file as String)
-            merged = ConfigMerger.merge(merged, current, strategy) as Map
+            merged = ConfigMerger.merge(merged, current, strategy)
         }
-        return merged
+        return merged as Map
     }
 
     private Map loadDefaultConfig(String path) {
@@ -38,7 +41,7 @@ class ConfigLoader implements Serializable {
             return [:]
         }
 
-        def ext = file.substring(file.lastIndexOf('.') + 1).toLowerCase()
+        def ext = file.tokenize('.').last().toLowerCase()
         try {
             switch (ext) {
                 case ['yaml', 'yml']:

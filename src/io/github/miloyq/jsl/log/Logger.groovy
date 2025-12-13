@@ -6,7 +6,11 @@ class Logger implements Serializable {
     private String scope
     private Level logLevel
 
-    Logger(script = null, String scope = null, Level logLevel = null) {
+    Logger(
+            script = null,
+            String scope = null,
+            Level logLevel = null
+    ) {
         this.script = script
         this.scope = resolveScope(script, scope)
         this.logLevel = resolveLogLevel(script, logLevel)
@@ -20,7 +24,11 @@ class Logger implements Serializable {
 
     void error(String msg) { log(Level.ERROR, msg, Color.RED) }
 
-    private void log(Level msgLevel, String msg, Color color) {
+    private void log(
+            Level msgLevel,
+            String msg,
+            Color color
+    ) {
         if (!shouldLog(msgLevel)) return
         def formatted = format(msg, msgLevel, color)
 
@@ -62,7 +70,11 @@ class Logger implements Serializable {
         return script?.STEP_NAME ?: 'Unknown'
     }
 
-    private String format(String msg, Level level, Color color) {
+    private String format(
+            String msg,
+            Level level,
+            Color color
+    ) {
         return "${color.code}[${scope}] ${level.name()}: ${msg}${Color.RESET.code}"
     }
 }

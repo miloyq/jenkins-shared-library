@@ -5,7 +5,9 @@ import io.github.miloyq.jsl.config.MergeStrategy
 class DeepMergeStrategy extends AbstractMergeStrategy {
     private MergeStrategy listStrategy
 
-    DeepMergeStrategy(MergeStrategy listStrategy = new OverrideMergeStrategy()) {
+    DeepMergeStrategy(
+            MergeStrategy listStrategy = new OverrideMergeStrategy()
+    ) {
         this.listStrategy = listStrategy
     }
 

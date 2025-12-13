@@ -32,6 +32,7 @@ class ConfigLoader implements Serializable {
             return script.readYaml(text: text) ?: [:]
         } catch (err) {
             log.error("Failed to get resource(${DEFAULT_CONFIG_PATH}): ${err.message}")
+            return [:]
         }
     }
 

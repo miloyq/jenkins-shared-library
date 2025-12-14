@@ -19,11 +19,13 @@ class ConfigLoader implements Serializable {
             MergeStrategy strategy = new DeepMergeStrategy()
     ) {
         def merged = loadDefaultConfig(DEFAULT_CONFIG_PATH)
+
         files?.each { file ->
             def current = readConfig(file as String)
             merged = ConfigMerger.merge(merged, current, strategy)
         }
-        return merged as Map
+
+        merged as Map
     }
 
     private Map loadDefaultConfig(String path) {

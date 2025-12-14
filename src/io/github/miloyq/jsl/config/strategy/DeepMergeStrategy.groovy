@@ -14,16 +14,18 @@ class DeepMergeStrategy extends AbstractMergeStrategy {
     @Override
     Map mergeMaps(Map base, Map override) {
         def merged = [:] + base
+
         override.each { k, v ->
             merged[k] = merged.containsKey(k)
                     ? merge(merged[k], v)
                     : v
         }
-        return merged
+
+        merged
     }
 
     @Override
     List mergeLists(List base, List override) {
-        return listStrategy.merge(base, override) as List
+        listStrategy.merge(base, override) as List
     }
 }

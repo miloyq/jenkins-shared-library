@@ -48,7 +48,7 @@ class Logger implements Serializable {
     }
 
     private boolean shouldLog(Level msgLevel) {
-        return msgLevel.priority >= logLevel.priority
+        msgLevel.priority >= logLevel.priority
     }
 
     private static Level resolveLogLevel(script, Level logLevel) {
@@ -62,12 +62,12 @@ class Logger implements Serializable {
             rawLevel = System.getenv('LOG_LEVEL')
         }
 
-        return Level.from(rawLevel ?: 'INFO')
+        Level.from(rawLevel ?: 'INFO')
     }
 
     private static String resolveScope(script, String scope) {
         if (scope) return scope
-        return script?.STEP_NAME ?: 'Unknown'
+        script?.STEP_NAME ?: 'Unknown'
     }
 
     private String format(
@@ -75,6 +75,6 @@ class Logger implements Serializable {
             Level level,
             Color color
     ) {
-        return "${color.code}[${scope}] ${level.name()}: ${msg}${Color.RESET.code}"
+        "${color.code}[${scope}] ${level.name()}: ${msg}${Color.RESET.code}"
     }
 }

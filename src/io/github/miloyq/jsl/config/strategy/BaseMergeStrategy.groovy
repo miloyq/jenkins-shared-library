@@ -2,7 +2,7 @@ package io.github.miloyq.jsl.config.strategy
 
 import io.github.miloyq.jsl.config.MergeStrategy
 
-abstract class AbstractMergeStrategy implements MergeStrategy {
+abstract class BaseMergeStrategy implements MergeStrategy {
     @Override
     Object merge(Object base, Object override) {
         if (!base) return override
@@ -13,7 +13,6 @@ abstract class AbstractMergeStrategy implements MergeStrategy {
         } else if (base instanceof List && override instanceof List) {
             return mergeLists(base, override)
         }
-
         return override
     }
 

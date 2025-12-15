@@ -1,6 +1,6 @@
 package io.github.miloyq.jsl.config.strategy
 
-class AppendMergeStrategy extends AbstractMergeStrategy {
+class AppendMergeStrategy extends BaseMergeStrategy {
     @Override
     Map mergeMaps(Map base, Map override) {
         base + override

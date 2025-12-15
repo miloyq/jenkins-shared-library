@@ -2,7 +2,7 @@ package io.github.miloyq.jsl.config.strategy
 
 import io.github.miloyq.jsl.config.MergeStrategy
 
-class DeepMergeStrategy extends AbstractMergeStrategy {
+class DeepMergeStrategy extends BaseMergeStrategy {
     private MergeStrategy listStrategy
 
     DeepMergeStrategy(

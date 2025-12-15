@@ -7,7 +7,7 @@ import io.github.miloyq.jsl.config.strategy.OverrideMergeStrategy
 import io.github.miloyq.jsl.config.strategy.UniqueMergeStrategy
 
 class MergeStrategyFactory {
-    static MergeStrategy getStrategy(String name) {
+    static MergeStrategy getStrategy(String name, Map options = [:]) {
         switch (name?.toLowerCase()) {
             case 'override':
                 return new OverrideMergeStrategy()
@@ -16,7 +16,9 @@ class MergeStrategyFactory {
             case 'unique':
                 return new UniqueMergeStrategy()
             case 'deep':
-                return new DeepMergeStrategy()
+                def listStrategyName = options.get('listStrategy', 'override')
+                def listStrategy = getStrategy(listStrategyName)
+                return new DeepMergeStrategy(listStrategy)
             default:
                 return new DeepMergeStrategy()
         }

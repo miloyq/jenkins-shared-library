@@ -6,6 +6,7 @@ def load(Map args = [:]) {
             ? args.files as List
             : [args.files]
     def strategy = MergeStrategyFactory.getStrategy(args.strategy as String)
+
     def loader = new ConfigLoader(this)
     def config = loader.loadConfig(files, strategy)
 

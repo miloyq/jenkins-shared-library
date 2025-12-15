@@ -55,12 +55,9 @@ class Logger implements Serializable {
         // 优先级：显式参数 > Jenkins env > 系统环境变量 > 默认 INFO
         if (logLevel) return logLevel
 
-        String rawLevel = null
-        if (script?.env?.LOG_LEVEL) {
-            rawLevel = script.env.LOG_LEVEL
-        } else if (System.getenv('LOG_LEVEL')) {
-            rawLevel = System.getenv('LOG_LEVEL')
-        }
+        String rawLevel = script?.env?.LOG_LEVEL
+                ?: System.getenv('LOG_LEVEL')
+                ?: 'INFO'
 
         Level.from(rawLevel ?: 'INFO')
     }

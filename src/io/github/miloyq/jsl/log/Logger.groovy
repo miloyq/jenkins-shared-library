@@ -2,6 +2,8 @@ package io.github.miloyq.jsl.log
 
 
 class Logger implements Serializable {
+    private static final long serialVersionUID = 1L
+
     private def script
     private String scope
     private Level logLevel
@@ -25,21 +27,21 @@ class Logger implements Serializable {
     void error(String msg) { log(Level.ERROR, msg, Color.RED) }
 
     private void log(
-            Level msgLevel,
+            Level level,
             String msg,
             Color color
     ) {
-        if (!shouldLog(msgLevel)) return
-        def formatted = format(msg, msgLevel, color)
+        if (!shouldLog(level)) return
+        def formatted = format(msg, level, color)
 
         if (script) { // 在 Jenkins pipeline 环境中
-            if (msgLevel == Level.ERROR) {
+            if (level == Level.ERROR) {
                 script.error(formatted)
             } else {
                 script.echo(formatted)
             }
         } else { // 降级模式：普通控制台输出
-            if (msgLevel == Level.ERROR) {
+            if (level == Level.ERROR) {
                 throw new RuntimeException(formatted)
             } else {
                 println(formatted)
@@ -47,8 +49,8 @@ class Logger implements Serializable {
         }
     }
 
-    private boolean shouldLog(Level msgLevel) {
-        msgLevel.priority >= logLevel.priority
+    private boolean shouldLog(Level level) {
+        level.priority >= logLevel.priority
     }
 
     private static Level resolveLogLevel(script, Level logLevel) {

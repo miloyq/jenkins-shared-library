@@ -1,5 +1,6 @@
 import io.github.miloyq.jsl.config.ConfigLoader
 import io.github.miloyq.jsl.config.MergeStrategyFactory
+import io.github.miloyq.jsl.config.PipelineConfig
 
 def load(Map args = [:]) {
     def files = (args.files instanceof List)
@@ -8,10 +9,10 @@ def load(Map args = [:]) {
     def strategy = MergeStrategyFactory.getStrategy(args.strategy as String)
 
     def loader = new ConfigLoader(this)
-    def config = loader.loadConfig(files, strategy)
-
+    def rawConfig = loader.loadConfig(files, strategy)
+    def pipelineConfig = new PipelineConfig(rawConfig)
     // 注册到 Jenkins Pipeline Script Binding
-    this.binding.setVariable("_JSL_CONFIG", config)
+    this.binding.setVariable("PIPELINE_CONFIG", pipelineConfig)
 
-    return config
+    return rawConfig
 }

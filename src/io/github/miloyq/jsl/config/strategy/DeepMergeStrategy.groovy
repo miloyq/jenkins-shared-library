@@ -12,7 +12,7 @@ class DeepMergeStrategy extends BaseMergeStrategy {
     }
 
     @Override
-    Map mergeMaps(Map base, Map override) {
+    Map mergeMap(Map base, Map override) {
         def merged = [:] + base
 
         override.each { k, v ->
@@ -20,12 +20,12 @@ class DeepMergeStrategy extends BaseMergeStrategy {
                     ? merge(merged[k], v)
                     : v
         }
-
+        
         merged
     }
 
     @Override
-    List mergeLists(List base, List override) {
+    List mergeList(List base, List override) {
         listStrategy.merge(base, override) as List
     }
 }

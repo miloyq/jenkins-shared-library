@@ -8,7 +8,7 @@ class ConfigMerger {
             Object override,
             MergeStrategy strategy = new DeepMergeStrategy()
     ) {
-        strategy.merge(base, override)
+        strategy?.merge(base, override)
     }
 
     static Object mergeAll(
@@ -17,7 +17,7 @@ class ConfigMerger {
             MergeStrategy strategy = new DeepMergeStrategy()
     ) {
         overrides.inject(base) { acc, o ->
-            strategy.merge(acc, o)
+            strategy?.merge(acc, o)
         }
     }
 }

@@ -2,12 +2,12 @@ package io.github.miloyq.jsl.config.strategy
 
 class AppendMergeStrategy extends BaseMergeStrategy {
     @Override
-    Map mergeMaps(Map base, Map override) {
+    Map mergeMap(Map base, Map override) {
         base + override
     }
 
     @Override
-    List mergeLists(List base, List override) {
+    List mergeList(List base, List override) {
         base + override
     }
 }

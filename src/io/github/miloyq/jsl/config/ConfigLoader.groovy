@@ -4,6 +4,7 @@ import io.github.miloyq.jsl.config.strategy.DeepMergeStrategy
 import io.github.miloyq.jsl.log.Logger
 
 class ConfigLoader implements Serializable {
+    private static final long serialVersionUID = 1L
     private static final String DEFAULT_CONFIG_PATH = 'config/default.yml'
 
     private def script

@@ -9,14 +9,14 @@ abstract class BaseMergeStrategy implements MergeStrategy {
         if (!override) return base
 
         if (base instanceof Map && override instanceof Map) {
-            return mergeMaps(base, override)
+            return mergeMap(base, override)
         } else if (base instanceof List && override instanceof List) {
-            return mergeLists(base, override)
+            return mergeList(base, override)
         }
         return override
     }
 
-    abstract Map mergeMaps(Map base, Map override)
+    abstract Map mergeMap(Map base, Map override)
 
-    abstract List mergeLists(List base, List override)
+    abstract List mergeList(List base, List override)
 }

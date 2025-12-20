@@ -2,6 +2,7 @@ package io.github.miloyq.jsl.config
 
 import io.github.miloyq.jsl.config.strategy.DeepMergeStrategy
 import io.github.miloyq.jsl.log.Logger
+import io.github.miloyq.jsl.util.MapUtils
 
 class ConfigLoader implements Serializable {
     private static final long serialVersionUID = 1L
@@ -53,7 +54,7 @@ class ConfigLoader implements Serializable {
                 case 'json':
                     return script.readJSON(file: file)
                 case 'properties':
-                    return script.readProperties(file: file)
+                    return MapUtils.expandFlatMap(script.readProperties(file: file) as Map)
                 default:
                     log.warn("Unsupported config file type: ${file}")
                     return [:]

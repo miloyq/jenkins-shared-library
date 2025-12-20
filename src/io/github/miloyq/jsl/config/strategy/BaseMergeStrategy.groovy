@@ -5,8 +5,8 @@ import io.github.miloyq.jsl.config.MergeStrategy
 abstract class BaseMergeStrategy implements MergeStrategy {
     @Override
     Object merge(Object base, Object override) {
-        if (!base) return override
-        if (!override) return base
+        if (base == null) return override
+        if (override == null) return base
 
         if (base instanceof Map && override instanceof Map) {
             return mergeMap(base, override)

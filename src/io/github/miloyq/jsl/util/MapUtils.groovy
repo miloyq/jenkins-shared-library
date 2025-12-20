@@ -36,12 +36,12 @@ class MapUtils {
 
         for (int i = 0; i < path.size() - 1; i++) {
             def key = path[i]
-            def next = current[key]
+            def next = current.get(key)
 
             if (!(next instanceof Map)) {
                 if (strict) return false
                 next = [:]
-                current[key] = next
+                current.put(key, next)
             }
 
             current = next
@@ -52,7 +52,7 @@ class MapUtils {
             return false
         }
 
-        current[lastKey] = value
+        current.put(lastKey, value)
         true
     }
 

@@ -1,67 +1,46 @@
 # ======================================
-# IDE / Editors
+# Build Output
 # ======================================
+# Gradle (仅忽略根目录下的 build)
+/build/
+.gradle/
 
-# IntelliJ IDEA
+# Maven
+target/
+
+# Common Artifacts
+*.class
+*.jar
+*.war
+*.zip
+*.log
+
+# ======================================
+# Jenkins & Testing
+# ======================================
+.jenkins-test-cache/
+*.jenkinsfile.test
+work/
+jobs/
+builds/
+logs/
+plugins/
+.jenkins/
+
+# ======================================
+# IDE & System
+# ======================================
 .idea/
 *.iml
-
-# VS Code
 .vscode/
-.history/
-*.code-workspace
-
-# Eclipse / STS
 .classpath
 .project
 .settings/
-.factorypath
-
-# NetBeans
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+.DS_Store
+Thumbs.db
 
 # ======================================
-# Build / Cache / Temp Files
+# Whitelist
 # ======================================
-
-# Gradle or Maven (if not used, safe to keep ignored)
-target/
-build/
-out/
-bin/
-
-# For occasional test-generated dirs
-!**/src/main/**/target/
-!**/src/test/**/target/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-# ======================================
-# Python / Shell tooling (optional)
-# ======================================
-__pycache__/
-*.pyc
-*.pyo
-.env
-venv/
-
-# ======================================
-# Jenkins-specific
-# ======================================
-
-# Jenkins creates these when running pipelines locally or under tests
-.jenkins/
-workspace/
-builds/
-
-# Pipeline shared library test outputs
-*.jenkinsfile.test
-.jenkins-test-cache/
-
-# If using Jenkins Shared Library + Spock tests (optional)
-.gradle/
-*.class
+# 强制不忽略 src 下的 build 目录
+!src/**/build/

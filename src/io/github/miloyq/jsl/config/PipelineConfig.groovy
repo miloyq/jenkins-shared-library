@@ -61,4 +61,8 @@ class PipelineConfig implements Serializable {
 
         stepConfig
     }
+
+    Map getPostConfig() {
+        MapUtils.getNestedMap(rawConfig, 'post')
+    }
 }

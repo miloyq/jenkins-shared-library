@@ -1,6 +1,5 @@
 package io.github.miloyq.jsl.config
 
-
 import io.github.miloyq.jsl.util.MapUtils
 
 class PipelineConfig implements Serializable {
@@ -64,5 +63,9 @@ class PipelineConfig implements Serializable {
 
     Map getPostConfig() {
         MapUtils.getNestedMap(rawConfig, 'post')
+    }
+
+    Map getRawConfig() {
+        return rawConfig
     }
 }

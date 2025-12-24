@@ -1,6 +1,5 @@
 package io.github.miloyq.jsl.log
 
-
 class Logger implements Serializable {
     private static final long serialVersionUID = 1L
 

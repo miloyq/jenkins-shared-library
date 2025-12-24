@@ -1,6 +1,5 @@
 package io.github.miloyq.jsl.config
 
-
 import io.github.miloyq.jsl.config.strategy.AppendMergeStrategy
 import io.github.miloyq.jsl.config.strategy.DeepMergeStrategy
 import io.github.miloyq.jsl.config.strategy.OverrideMergeStrategy

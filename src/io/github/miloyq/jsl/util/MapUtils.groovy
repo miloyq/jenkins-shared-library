@@ -35,24 +35,24 @@ class MapUtils {
         def current = map
 
         for (int i = 0; i < path.size() - 1; i++) {
-            def key = path[i]
-            def next = current.get(key)
+            String key = path[i]
+            def next = current[key]
 
-            if (!(next instanceof Map)) {
+            if (next instanceof Map) {
+                current = next
+            } else {
                 if (strict) return false
                 next = [:]
-                current.put(key, next)
+                current[key] = next
             }
-
-            current = next
         }
 
-        def lastKey = path[-1]
+        String lastKey = path[-1]
         if (strict && !current.containsKey(lastKey)) {
             return false
         }
 
-        current.put(lastKey, value)
+        current[lastKey] = value
         true
     }
 

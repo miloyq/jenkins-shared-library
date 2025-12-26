@@ -1,5 +1,8 @@
 package io.github.miloyq.jsl.log
 
+/**
+ * ANSI color codes for console output.
+ */
 enum Color {
     RESET('\u001B[0m'),
     RED('\u001B[31m'),

@@ -4,6 +4,10 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import static org.junit.jupiter.api.Assertions.*
 
+/**
+ * Unit tests for PipelineConfig.
+ * Verifies hierarchical configuration retrieval and argument mapping.
+ */
 class PipelineConfigTest {
     private PipelineConfig pipelineConfig
 
@@ -24,6 +28,7 @@ class PipelineConfigTest {
                         ]
                 ]
         ]
+
         pipelineConfig = new PipelineConfig(rawConfig)
     }
 
@@ -32,33 +37,43 @@ class PipelineConfigTest {
         assertEquals('docker.io', pipelineConfig.globalConfig.registry)
     }
 
+    /**
+     * Tests that stage configuration correctly inherits from global configuration.
+     */
     @Test
     void testGetStageConfigMerge() {
-        // Stage 配置应该包含 global 配置
         def config = pipelineConfig.getStageConfig('build')
-        assertEquals('docker.io', config.registry)
-        assertEquals('maven:3.8', config.image)
+
+        assertEquals('docker.io', config.registry) // Inherited from global
+        assertEquals('maven:3.8', config.image)    // Defined in stage
     }
 
+    /**
+     * Tests the complex scenario of mapping pipeline step arguments to config values.
+     * Verifies that 'args' can override static configuration.
+     */
     @Test
     void testGetStepConfigWithArgsMapping() {
-        // 测试带有参数映射的方法
+        // Prepare arguments passed from the pipeline step (e.g., myStep(myImage: '...'))
         def args = [
                 myImage: 'golang:1.16',
                 myScript: 'go build'
         ]
+
+        // Define mapping: Argument 'myImage' maps to config key 'image'
+        // Argument 'myScript' maps to a deeply nested key 'steps.sh.script'
         def mapping = [
                 myImage: 'image',
-                myScript: 'steps.sh.script' // 嵌套映射
+                myScript: 'steps.sh.script' // Nested mapping
         ]
 
-        // 基础配置：global + stages(build) + steps(customStep)
-        // 预期结果应合并所有层级，并应用 args 映射
+        // Execute: Retrieve configuration with mapping applied
         def config = pipelineConfig.getStepConfig(args, mapping, 'build', 'customStep')
 
-        assertEquals('golang:1.16', config.image) // 来自 args 映射覆盖
-        assertEquals('go build', config.steps.sh.script) // 来自 args 嵌套映射
-        assertEquals(30, config.timeout) // 来自 steps 配置
-        assertEquals('docker.io', config.registry) // 来自 global
+        // Verify: Arguments should override configuration at the mapped paths
+        assertEquals('golang:1.16', config.image) // From args mapping override
+        assertEquals('go build', config.steps.sh.script) // From args nested mapping
+        assertEquals(30, config.timeout) // From steps config
+        assertEquals('docker.io', config.registry) // From global
     }
 }

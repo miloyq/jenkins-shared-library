@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.github.miloyq</groupId>
@@ -12,9 +14,10 @@
     <name>Jenkins Shared Library</name>
     <description>
         A Jenkins Shared Library providing reusable pipeline steps and utilities
-        to standardize CI/CD pipelines across projects.
+        to standardize CI/CD pipelines across multiple projects.
     </description>
 
+    <!-- Jenkins public repository (required for pipeline-related dependencies) -->
     <repositories>
         <repository>
             <id>repo.jenkins-ci.org</id>
@@ -30,30 +33,27 @@
     </pluginRepositories>
 
     <properties>
+        <!-- Jenkins LTS version this shared library is compatible with -->
         <jenkins.version>2.492.2</jenkins.version>
 
-        <!-- 与 Jenkins 内置 Groovy 版本对应 -->
+        <!-- Groovy version MUST match Jenkins built-in Groovy (2.4.x) -->
         <groovy.version>2.4.21</groovy.version>
 
-        <!-- 测试依赖 -->
+        <!-- Testing dependencies -->
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
         <pipeline.unit.version>1.20</pipeline.unit.version>
 
-        <!-- 编译与运行版本，内置 Groovy 版本支持到 Java 8 -->
+        <!-- Jenkins core still relies on Java 8 compatibility -->
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+
+        <!-- Ensure consistent encoding -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-        <!-- Jenkins 核心 -->
-        <!--<dependency>
-            <groupId>org.jenkins-ci.main</groupId>
-            <artifactId>jenkins-core</artifactId>
-            <version>${jenkins.version}</version>
-            <scope>provided</scope>
-        </dependency>-->
-
-        <!-- Groovy 核心 -->
+        <!-- Groovy core library
+             Marked as provided because Jenkins supplies its own Groovy runtime -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
@@ -61,7 +61,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- JUnit5 单元测试框架 -->
+        <!-- JUnit 5 for unit testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -69,8 +69,8 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Jenkins Pipeline 单元测试 -->
-        <!--suppress VulnerableLibrariesLocal -->
+        <!-- Jenkins Pipeline Unit framework for testing shared libraries -->
+        <!--noinspection VulnerableLibrariesLocal -->
         <dependency>
             <groupId>com.lesfurets</groupId>
             <artifactId>jenkins-pipeline-unit</artifactId>
@@ -81,7 +81,7 @@
 
     <build>
         <plugins>
-            <!-- Groovy 编译插件 -->
+            <!-- Compile Groovy sources used by Jenkins Shared Library -->
             <plugin>
                 <groupId>org.codehaus.gmavenplus</groupId>
                 <artifactId>gmavenplus-plugin</artifactId>
@@ -96,6 +96,8 @@
                 </executions>
                 <configuration>
                     <targetBytecode>1.8</targetBytecode>
+
+                    <!-- Jenkins Shared Library source directories -->
                     <sources>
                         <source>
                             <directory>${project.basedir}/src</directory>
@@ -110,6 +112,8 @@
                             </includes>
                         </source>
                     </sources>
+
+                    <!-- Groovy test sources -->
                     <testSources>
                         <testSource>
                             <directory>${project.basedir}/test</directory>
@@ -121,7 +125,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Maven Compiler 插件 -->
+            <!-- Java compiler configuration -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
@@ -131,7 +135,7 @@
                 </configuration>
             </plugin>
 
-            <!-- 测试执行插件 -->
+            <!-- Run unit tests (JUnit 5 + Jenkins Pipeline Unit) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -145,4 +149,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

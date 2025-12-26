@@ -1,7 +1,46 @@
+# ==============================================================================
+# Default Pipeline Configuration
+# ==============================================================================
+# This file serves as the base configuration for the pipeline.
+# Project-specific configurations (e.g., project.yml) will merge into this.
+#
+# Merge Precedence (Lowest to Highest):
+# 1. default.yml (This file)
+# 2. Project Config (e.g., project.yml loaded via loadConfig)
+# 3. Pipeline Arguments (Step parameters)
+# ==============================================================================
+
+# Global configuration applied to all stages and steps.
+# Can be overridden by specific stage or step configurations.
 global:
+# Example: Default container registry
+# registry: "docker.io"
+# Example: Default log level
+# logLevel: "INFO"
 
+# Configuration specific to named stages.
+# Structure: [stageName]: { config }
 stages:
+# Example: Configuration for the 'Build' stage
+# build:
+#   image: "maven:3.8-openjdk-11"
+#   timeout: 20
 
+# Example: Configuration for the 'Test' stage
+# test:
+#   skip: false
+
+# Configuration specific to named steps (custom pipeline steps).
+# Structure: [stepName]: { config }
 steps:
+# Example: Configuration for a custom 'sonarScan' step
+# sonarScan:
+#   enforceQualityGate: true
+#   waitForQualityGate: true
 
+# Post-execution configuration (notifications, cleanup, etc.)
 post:
+# always:
+#   archiveArtifacts: true
+# failure:
+#   notifySlack: true

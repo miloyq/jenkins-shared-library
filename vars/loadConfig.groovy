@@ -3,6 +3,21 @@ import io.github.miloyq.jsl.config.MergeStrategyFactory
 import io.github.miloyq.jsl.config.PipelineConfig
 import io.github.miloyq.jsl.log.Logger
 
+/**
+ * Global entry point for loading pipeline configuration.
+ *
+ * Implements a Singleton pattern via the Jenkins binding to ensure configuration
+ * is parsed only once per build, improving performance.
+ *
+ * Usage:
+ * def config = loadConfig(files: ['jenkins.yml'], strategy: 'override')
+ *
+ * @param args Configuration map:
+ * - files (List|String): Path(s) to configuration files relative to workspace root.
+ * - strategy (String): Merge strategy name [deep, override, append, unique]. Default: 'deep'.
+ * - options (Map): Additional options for the strategy factory (e.g., listStrategy).
+ * @return Map The raw merged configuration map.
+ */
 def call(Map args = [:]) {
     def log = new Logger(this, 'loadConfig')
 
@@ -24,8 +39,7 @@ def call(Map args = [:]) {
     def rawConfig = loader.loadConfig(files, strategy)
     def pipelineConfig = new PipelineConfig(rawConfig)
 
-    // Register the configuration object to the Jenkins Pipeline Script Binding
-    // so it can be accessed globally via the PIPELINE_CONFIG variable.
+    // Registers the config object to the script binding for global access
     this.binding.setVariable("PIPELINE_CONFIG", pipelineConfig)
 
     return rawConfig

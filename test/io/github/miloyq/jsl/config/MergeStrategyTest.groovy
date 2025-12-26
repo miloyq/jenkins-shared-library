@@ -4,8 +4,15 @@ import io.github.miloyq.jsl.config.strategy.*
 import org.junit.jupiter.api.Test
 import static org.junit.jupiter.api.Assertions.*
 
+/**
+ * Unit tests for various MergeStrategy implementations.
+ */
 class MergeStrategyTest {
 
+    /**
+     * Tests the DeepMergeStrategy logic.
+     * Verifies that maps are merged recursively and lists use the default override strategy.
+     */
     @Test
     void testDeepMergeStrategy() {
         def strategy = new DeepMergeStrategy()
@@ -23,16 +30,22 @@ class MergeStrategyTest {
 
         def result = strategy.merge(base, override) as Map
 
+        // Verify Map merging logic
         assertEquals(2, result.a)
-        assertEquals(1, result.nested.x)
-        assertEquals(3, result.nested.y) // Override inside nested
-        assertEquals(4, result.nested.z)
-        assertEquals([3], result.list) // Default list strategy is Override
+        assertEquals(1, result.nested.x) // Preserved from base
+        assertEquals(3, result.nested.y) // Overridden by override
+        assertEquals(4, result.nested.z) // Added from override
+
+        // Verify List merging logic (Default list strategy is Override)
+        assertEquals([3], result.list)
     }
 
+    /**
+     * Tests DeepMergeStrategy composed with UniqueMergeStrategy for lists.
+     */
     @Test
     void testDeepMergeWithUniqueListStrategy() {
-        // 组合策略：Map 深度合并，List 去重追加
+        // Composition: Deep merge for Maps, Unique merge for Lists
         def strategy = new DeepMergeStrategy(new UniqueMergeStrategy())
 
         def base = [list: [1, 2]]
@@ -40,9 +53,14 @@ class MergeStrategyTest {
 
         def result = strategy.merge(base, override) as Map
 
+        // Verify: Lists should be combined and deduplicated
         assertEquals([1, 2, 3], result.list)
     }
 
+    /**
+     * Tests AppendMergeStrategy.
+     * Verifies shallow map merging and list concatenation.
+     */
     @Test
     void testAppendMergeStrategy() {
         def strategy = new AppendMergeStrategy()
@@ -50,18 +68,24 @@ class MergeStrategyTest {
         def override = [b: 2]
 
         def result = strategy.merge(base, override) as Map
+
+        // Verify: Simple shallow merge for Maps
         assertEquals(1, result.a)
         assertEquals(2, result.b)
 
-        // List append
+        // Verify: List append behavior (allows duplicates)
         assertEquals([1, 2, 3, 4], strategy.merge([1, 2], [3, 4]))
     }
 
+    /**
+     * Tests the Factory class to ensure it returns correct instances.
+     */
     @Test
     void testConfigMergerFactory() {
         assertTrue(MergeStrategyFactory.getStrategy('deep') instanceof DeepMergeStrategy)
         assertTrue(MergeStrategyFactory.getStrategy('unique') instanceof UniqueMergeStrategy)
-        // 测试默认
+
+        // Verify default fallback
         assertTrue(MergeStrategyFactory.getStrategy(null) instanceof DeepMergeStrategy)
     }
 }

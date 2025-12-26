@@ -4,6 +4,10 @@ import io.github.miloyq.jsl.config.strategy.DeepMergeStrategy
 import io.github.miloyq.jsl.log.Logger
 import io.github.miloyq.jsl.util.MapUtils
 
+/**
+ * Handles the loading and parsing of configuration files.
+ * Supports YAML, JSON, and Properties formats.
+ */
 class ConfigLoader implements Serializable {
     private static final long serialVersionUID = 1L
     private static final String DEFAULT_CONFIG_PATH = 'config/default.yml'
@@ -11,11 +15,21 @@ class ConfigLoader implements Serializable {
     private def script
     private Logger log
 
+    /**
+     * @param script The Jenkins pipeline script context (usually 'this').
+     */
     ConfigLoader(script) {
         this.script = script
         this.log = new Logger(script, 'ConfigLoader')
     }
 
+    /**
+     * Loads a list of configuration files and merges them with the default configuration.
+     *
+     * @param files List of file paths to load.
+     * @param strategy The merge strategy to apply (default: DeepMergeStrategy).
+     * @return The fully merged configuration map.
+     */
     Map loadConfig(
             List files = [],
             MergeStrategy strategy = new DeepMergeStrategy()
@@ -27,7 +41,7 @@ class ConfigLoader implements Serializable {
             merged = ConfigMerger.merge(merged, current, strategy)
         }
 
-        merged as Map
+        return merged as Map
     }
 
     private Map loadDefaultConfig(String path) {
@@ -47,6 +61,7 @@ class ConfigLoader implements Serializable {
         }
 
         def ext = file.tokenize('.').last().toLowerCase()
+
         try {
             switch (ext) {
                 case ['yaml', 'yml']:

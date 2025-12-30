@@ -65,7 +65,7 @@ class MapUtils {
             def next = current[key]
 
             if (!(next instanceof Map)) {
-                if (strict) return false
+                if (strict && next != null) return false
                 next = [:]
                 current[key] = next
             }
@@ -73,11 +73,8 @@ class MapUtils {
         }
 
         String lastKey = path[-1]
-        if (strict && !current.containsKey(lastKey)) {
-            return false
-        }
-
         current[lastKey] = value
+
         return true
     }
 

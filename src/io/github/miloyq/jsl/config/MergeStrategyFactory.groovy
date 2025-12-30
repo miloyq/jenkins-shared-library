@@ -30,7 +30,7 @@ class MergeStrategyFactory {
             case 'unique':
                 return new UniqueMergeStrategy()
             case 'deep':
-                String listStrategyName = options.listStrategy ?: 'override'
+                String listStrategyName = options?.listStrategy ?: 'override'
                 def listStrategy = getStrategy(listStrategyName)
                 return new DeepMergeStrategy(listStrategy)
             default:

@@ -19,6 +19,8 @@ import io.github.miloyq.jsl.log.Logger
  * @return Map The raw merged configuration map.
  */
 def call(Map args = [:]) {
+    args = args ?: [:]
+
     def log = new Logger(this, 'loadConfig')
 
     if (this.binding.hasVariable("PIPELINE_CONFIG")) {

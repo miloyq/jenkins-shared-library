@@ -36,6 +36,6 @@ class DeepMergeStrategy extends BaseMergeStrategy {
 
     @Override
     List mergeList(List base, List override) {
-        return listStrategy.merge(base, override) as List
+        return listStrategy?.merge(base, override) as List
     }
 }

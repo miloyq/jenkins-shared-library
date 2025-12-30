@@ -55,6 +55,11 @@ class ConfigLoader implements Serializable {
     }
 
     private Map readConfig(String file) {
+        if (!file) {
+            log.warn("Invalid file path: null or empty")
+            return [:]
+        }
+
         if (!script.fileExists(file)) {
             log.warn("Config file not found: ${file}")
             return [:]
